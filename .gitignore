@@ -64,3 +64,4 @@ src/res/license.txt
 /docs/README.md
 /docs/SITE_STRUCTURE.md
 /docs/DEPLOYMENT.md
+build/

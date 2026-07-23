@@ -400,6 +400,29 @@ if(WIN32)
     set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE ON)
 endif()
 
+if(APPLE)
+    set(MACOSX_ICON_FILE "${CMAKE_CURRENT_SOURCE_DIR}/res/omodscan.icns")
+    set(MACOSX_BUNDLE_GUI_ID "org.ananev.OpenModScan")
+
+    set_source_files_properties(${MACOSX_ICON_FILE} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources"
+    )
+    target_sources(${PROJECT_NAME} PRIVATE ${MACOSX_ICON_FILE})
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_BUNDLE_NAME "${PRODUCT_NAME}"
+        MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "${MACOSX_BUNDLE_GUI_ID}"
+        MACOSX_BUNDLE_ICON_FILE "omodscan.icns"
+    )
+
+    install(TARGETS ${PROJECT_NAME}
+        BUNDLE DESTINATION .
+    )
+endif()
+
 if(LINUX)
     configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/omodscan.desktop.in"
